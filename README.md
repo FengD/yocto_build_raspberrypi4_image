@@ -39,7 +39,7 @@ The Yocto Project is a collection of tools and meta-data (defined in a bit) that
 The main parts of the Yocto Project are the build system, the package meta-data, and the developer tools. The build system uses a tool called "bitbake" to process the meta-data and produce a complete Linux distribution. By design, the build system produces not just the software that will run on the target, but also the development tools used to build that software. It basically starts completely from scratch, building all the tools needed to construct the software, and then using those to build the kernel, libraries, and programs that comprise a Linux distribution. Finally, it prepares the resulting software by placing it into appropriate bundles (including packages, images, or both) for deployment to the target device and in preparation for application development and debugging. The Yocto Project also includes various additional tools used to develop embedded Linux or applications on top of it. This includes things such as emulators, IDEs and host/target (cross) agents and debug tools.[14]
 
 #### 1.2.2. What's special of this project?
-To use yocto project to build your customized Linux os. You need to have an ubuntu 14.04 or 16.04 `(yocto only support for these two version)` system and install all the dependencies in it. For example,
+To use yocto project to build your customized Linux os. You need to have an ubuntu 14.04 or 16.04 `(yocto only support for these two versions)` system and install all the dependencies in it. For example,
 
 ```sh
 # Install dependencies
@@ -237,10 +237,50 @@ bitbake libsml
 To be done.
 
 ## 3. Dependencies
-To be done.
+* ubuntu system or [docker image](https://hub.docker.com/repository/docker/dingfengffffff/yocto)
+* yocto project
+* The other meta layer projects
 
 ## 4. Tips
-To be done.
+### Error List[10]
+* 1. Root build error
+
+```
+ERROR:  OE-core's config sanity checker detected a potential misconfiguration.
+    Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
+    Following is the list of potential problems / advisories:
+
+    Do not use Bitbake as root.
+```
+
+```
+Solution:
+in file "yocto-bsp/sources/poky/meta/classes/sanity.bbclass"
+uncomment
+#if 0 == os.getuid():
+#    raise_sanity_error("Do not use Bitbake as root.", d)
+
+or
+
+use user no root
+```
+
+* 2. Branch not same
+
+```
+ERROR: gnu-config-native-20150728+gitAUTOINC+b576fa87c1-r0 do_unpack: Function failed: Fetcher failure: Fetch command failed with exit code 128, output:
+
+fatal: the '--set-upstream' option is no longer supported. Please use '--track' or '--set-upstream-to' instead.
+
+ERROR: Logfile of failure stored in: /home/leo/work/imx6/genivi-imx6/build-genivi/tmp/work/x86_64-linux/gnu-config-native/20150728+gitAUTOINC+b576fa87c1-r0/temp/log.do_unpack.3948
+```
+
+```
+Solution:
+1. update git
+2. change branche
+```
+
 
 ## 5. References
 * [1. yocto](https://www.yoctoproject.org/)
