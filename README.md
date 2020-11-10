@@ -286,7 +286,20 @@ KERNEL_FEATURES_append += "${@bb.utils.contains('DISTRO_FEATURES', 'cfg', ' feat
 ```
 
 ### 2.5. Cross build application
-To be done.
+
+```sh
+ding@f763b617ea24:/yocto/rpi-build$  bitbake -s |grep toolchain
+meta-extsdk-toolchain                                 :1.0-r0                          
+meta-go-toolchain                                     :1.0-r0                          
+meta-toolchain                                        :1.0-r7                          
+nativesdk-icecc-toolchain                             :0.1-r0
+
+
+#use
+bitbake meta-toolchain
+```
+
+After finished successfully, you will find a `.sh` file in the `/deploy/sdk`
 
 ## 3. Dependencies
 * ubuntu system or [docker image](https://hub.docker.com/repository/docker/dingfengffffff/yocto)
