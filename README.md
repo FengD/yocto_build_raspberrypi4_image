@@ -364,3 +364,5 @@ Solution:
 * [14. yocto project introduction](https://elinux.org/Yocto_Project_Introduction)
 * [15. raspberrypi4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/?resellerType=home)
 * [16. raspberrypi4 startup](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
+* [17. meta toolchain](https://blog.csdn.net/sy373466062/article/details/50387199)
+* [18. meta toolchain](https://blog.csdn.net/txy12029047/article/details/108284967)
