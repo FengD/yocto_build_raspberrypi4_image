@@ -16,9 +16,12 @@
       - [2.1.5. Deploy](#215-deploy)
     + [2.2. Build Your own meta-layer](#22-build-your-own-meta-layer)
     + [2.3. Build third-party library](#23-build-third-party-library)
-    + [2.4. Cross build application](#24-cross-build-application)
+    + [2.4. Add other layers and recipes](#24-add-other-layers-and-recipes)
+      - [2.4.1. Add docker](#241-add-docker)
+    + [2.5. Cross build application](#25-cross-build-application)
   * [3. Dependencies](#3-dependencies)
   * [4. Tips](#4-tips)
+    + [Error List[10]](#error-list-10-)
   * [5. References](#5-references)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -233,7 +236,56 @@ Thats it, now you should see the recipe in meta-oe layer, you can try to build i
 ```sh
 bitbake libsml
 ```
-### 2.4. Cross build application
+
+### 2.4. Add other layers and recipes
+#### 2.4.1. Add docker
+Reference [8] gives you an example of how to add docker in your image. In brief, I give you the important steps below.
+
+* Clone and add the layers `meta-virtualization` in your project.
+
+```sh
+git clone -b dunfell git://git.openembedded.org/meta-openembedded
+# bblayers.conf is like
+BBLAYERS ?= " \
+  /yocto/dunfell/poky-dunfell/meta \
+  /yocto/dunfell/poky-dunfell/meta-poky \
+  /yocto/dunfell/poky-dunfell/meta-yocto-bsp \
+  /yocto/dunfell/layers/meta-openembedded/meta-oe \
+  /yocto/dunfell/layers/meta-openembedded/meta-multimedia \
+  /yocto/dunfell/layers/meta-openembedded/meta-networking \
+  /yocto/dunfell/layers/meta-openembedded/meta-perl \
+  /yocto/dunfell/layers/meta-openembedded/meta-python \
+  /yocto/dunfell/layers/meta-openembedded/meta-filesystems \
+  /yocto/dunfell/layers/meta-qt5 \
+  /yocto/dunfell/layers/meta-raspberrypi \
+  /yocto/dunfell/layers/meta-security \
+  /yocto/dunfell/layers/meta-jumpnow \
+  /yocto/dunfell/layers/meta-rpi64 \
+  /yocto/dunfell/layers/meta-test-layer \
+  /yocto/dunfell/layers/meta-virtualization \
+  "
+```
+
+* Add `docker-ce` in your .conf
+
+```sh
+#you could find the docker-ce
+bitbake -s |grep docker
+# add image install in your local.conf file
+IMAGE_INSTALL_append = " docker-ce"
+```
+
+* Errors might meet
+
+```sh
+#ERROR. input file "cfg/virtio.scc" does not exist is a error.
+#go to the file /home/ding/Documents/yocto/dunfell/layers/meta-virtualization/recipes-kernel/linux/linux-yocto_virtualization.inc. Replace the following line
+KERNEL_FEATURES_append = " cfg/virtio.scc"
+# with
+KERNEL_FEATURES_append += "${@bb.utils.contains('DISTRO_FEATURES', 'cfg', ' features/cfg/virtio.scc', '', d)}"
+```
+
+### 2.5. Cross build application
 To be done.
 
 ## 3. Dependencies
