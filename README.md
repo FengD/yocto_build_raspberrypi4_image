@@ -295,11 +295,16 @@ meta-toolchain                                        :1.0-r7
 nativesdk-icecc-toolchain                             :0.1-r0
 
 
-#use
+Use the command bellow to build the toochain
+
+```sh
 bitbake meta-toolchain
 ```
 
 After finished successfully, you will find a `.sh` file in the `/deploy/sdk`
+use the .sh file to install the toolchain.
+
+There is a `environment-setup-aarch64-poky-linux` file which could be used to set the environment.
 
 ## 3. Dependencies
 * ubuntu system or [docker image](https://hub.docker.com/repository/docker/dingfengffffff/yocto)
