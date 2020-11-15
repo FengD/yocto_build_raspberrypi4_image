@@ -425,7 +425,8 @@ There are two solutions
 * [17. meta toolchain](https://blog.csdn.net/sy373466062/article/details/50387199)
 * [18. meta toolchain](https://blog.csdn.net/txy12029047/article/details/108284967)
 * [19. initialization manager configure systemd or SysVinit](https://blog.csdn.net/faihung/article/details/82713816)
-* [20. yocto kernal cache](https://git.yoctoproject.org/cgit/cgit.cgi/yocto-kernel-cache/)
-* [21. check bluetooth status on raspberrypi](https://blog.csdn.net/guzhong10/article/details/78574577)
+* [20. compare between systemd & SysVinit](https://www.cnblogs.com/timlong/p/12979871.html)
+* [21. yocto kernal cache](https://git.yoctoproject.org/cgit/cgit.cgi/yocto-kernel-cache/)
+* [22. check bluetooth status on raspberrypi](https://blog.csdn.net/guzhong10/article/details/78574577)
 
 
