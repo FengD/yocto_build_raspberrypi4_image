@@ -390,4 +390,6 @@ If these kind of error occured, search it in the [yocto kernal cache project](ht
 * [18. meta toolchain](https://blog.csdn.net/txy12029047/article/details/108284967)
 * [19. initialization manager configure systemd or SysVinit](https://blog.csdn.net/faihung/article/details/82713816)
 * [20. yocto kernal cache](https://git.yoctoproject.org/cgit/cgit.cgi/yocto-kernel-cache/)
+* [21. check bluetooth status on raspberrypi](https://blog.csdn.net/guzhong10/article/details/78574577)
+
 
