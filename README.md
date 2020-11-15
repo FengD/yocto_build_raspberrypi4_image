@@ -275,15 +275,7 @@ bitbake -s |grep docker
 IMAGE_INSTALL_append = " docker-ce"
 ```
 
-* Errors might meet
-
-```sh
-#ERROR. input file "cfg/virtio.scc" does not exist is a error.
-#go to the file /home/ding/Documents/yocto/dunfell/layers/meta-virtualization/recipes-kernel/linux/linux-yocto_virtualization.inc. Replace the following line
-KERNEL_FEATURES_append = " cfg/virtio.scc"
-# with
-KERNEL_FEATURES_append += "${@bb.utils.contains('DISTRO_FEATURES', 'cfg', ' features/cfg/virtio.scc', '', d)}"
-```
+* Errors might meet check the error list below.
 
 ### 2.5. Cross build application
 
@@ -366,8 +358,52 @@ And you could might the error showed below:
 | ERROR: could not process input files: /yocto/rpi64_build/tmp/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.75+gitAUTOINC+95d7686066-r0/defconfig /yocto/dunfell/layers/meta-rpi64/recipes-kernel/linux/linux-raspberrypi-5.4/ikconfig.cfg cfg/virtio.scc
 |        See /tmp/tmp.OYrpQp9Fks for details
 ```
-
+Solution:
 If these kind of error occured, search it in the [yocto kernal cache project](https://git.yoctoproject.org/cgit/cgit.cgi/yocto-kernel-cache/) and then follow the error log, place the files in the correspondent folder and rebuild again.
+
+OR
+
+```sh
+#ERROR. input file "cfg/virtio.scc" does not exist is a error.
+#go to the file /home/ding/Documents/yocto/dunfell/layers/meta-virtualization/recipes-kernel/linux/linux-yocto_virtualization.inc. Replace the following line
+KERNEL_FEATURES_append = " cfg/virtio.scc"
+# with
+KERNEL_FEATURES_append += "${@bb.utils.contains('DISTRO_FEATURES', 'cfg', ' features/cfg/virtio.scc', '', d)}"
+```
+
+* 4. The postinstall intercept error
+
+If you have a bad luck, the error below could be found each time when you want to install some recipe in your image.
+
+```sh
+NOTE: recipe rpi-basic-image-1.0-r0: task do_rootfs: Started
+ERROR: rpi-basic-image-1.0-r0 do_rootfs: The postinstall intercept hook 'update_pixbuf_cache' failed, details in /yocto/rpi64_build/tmp/work/raspberrypi4_64-poky-linux/rpi-basic-image/1.0-r0/temp/log.do_rootfs
+ERROR: Logfile of failure stored in: /yocto/rpi64_build/tmp/work/raspberrypi4_64-poky-linux/rpi-basic-image/1.0-r0/temp/log.do_rootfs.611251
+NOTE: recipe rpi-basic-image-1.0-r0: task do_rootfs: Failed
+ERROR: Task (/yocto/dunfell/layers/meta-raspberrypi/recipes-core/images/rpi-basic-image.bb:do_rootfs) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 2067 tasks of which 2051 didn't need to be rerun and 1 failed.
+```
+
+In folder poky there is a folder scripts
+
+```sh
+scripts
+├── postinst-intercepts
+│   ├── delay_to_first_boot
+│   ├── postinst_intercept
+│   ├── update_desktop_database
+│   ├── update_font_cache
+│   ├── update_gio_module_cache
+│   ├── update_gtk_icon_cache
+│   ├── update_gtk_immodules_cache
+│   ├── update_mime_database
+│   ├── update_pixbuf_cache
+│   └── update_udev_hwdb
+```
+There are two solutions
+1. Delete the file showed in the error (that is because I did not understand the error at the begining, but it is really works)
+2. Or update your poky and other layers.
+
 
 ## 5. References
 * [1. yocto](https://www.yoctoproject.org/)
