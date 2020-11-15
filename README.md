@@ -351,6 +351,23 @@ Solution:
 2. change branche
 ```
 
+* 3. Search missing config file .scc[20]
+
+For some reason, the new change of yocto kernal recipe is changed in another branch.
+And you could might the error showed below:
+```sh
+| ERROR. input file "cfg/virtio.scc" does not exist
+| ERROR: could not process input files: /yocto/rpi64_build/tmp/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.75+gitAUTOINC+95d7686066-r0/defconfig /yocto/dunfell/layers/meta-rpi64/recipes-kernel/linux/linux-raspberrypi-5.4/ikconfig.cfg cfg/virtio.scc
+|        See /tmp/tmp.OYrpQp9Fks for details
+| ERROR: Could not generate configuration queue for raspberrypi4-64.
+| WARNING: exit code 1 from a shell command.
+| ERROR: Execution of '/yocto/rpi64_build/tmp/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.75+gitAUTOINC+95d7686066-r0/temp/run.do_kernel_metadata.3945088' failed with exit code 1:
+| ERROR. input file "cfg/virtio.scc" does not exist
+| ERROR: could not process input files: /yocto/rpi64_build/tmp/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.75+gitAUTOINC+95d7686066-r0/defconfig /yocto/dunfell/layers/meta-rpi64/recipes-kernel/linux/linux-raspberrypi-5.4/ikconfig.cfg cfg/virtio.scc
+|        See /tmp/tmp.OYrpQp9Fks for details
+```
+
+If these kind of error occured, search it in the [yocto kernal cache project](https://git.yoctoproject.org/cgit/cgit.cgi/yocto-kernel-cache/) and then follow the error log, place the files in the correspondent folder and rebuild again.
 
 ## 5. References
 * [1. yocto](https://www.yoctoproject.org/)
@@ -371,3 +388,6 @@ Solution:
 * [16. raspberrypi4 startup](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
 * [17. meta toolchain](https://blog.csdn.net/sy373466062/article/details/50387199)
 * [18. meta toolchain](https://blog.csdn.net/txy12029047/article/details/108284967)
+* [19. initialization manager configure systemd or SysVinit](https://blog.csdn.net/faihung/article/details/82713816)
+* [20. yocto kernal cache](https://git.yoctoproject.org/cgit/cgit.cgi/yocto-kernel-cache/)
+
