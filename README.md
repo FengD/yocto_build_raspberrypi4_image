@@ -404,6 +404,30 @@ There are two solutions
 1. Delete the file showed in the error (that is because I did not understand the error at the begining, but it is really works)
 2. Or update your poky and other layers.
 
+* 5. No space left on device error
+
+Some times you may meet the no space left error as shown below. But if you use `df` to check the device or `df -ih` to check the inode, you may find nothing special. It is because the inotify number reach to the maximum.
+
+```sh
+ERROR: No space left on device or exceeds fs.inotify.max_user_watches?
+ERROR: To check max_user_watches: sysctl -n fs.inotify.max_user_watches.
+ERROR: To modify max_user_watches: sysctl -n -w fs.inotify.max_user_watches=<value>.
+ERROR: Root privilege is required to modify max_user_watches.
+ERROR: Command execution failed: Traceback (most recent call last):
+  File "/yocto/dunfell/poky-dunfell/bitbake/lib/bb/command.py", line 103, in runAsyncCommand
+    self.cooker.updateCache()
+  File "/yocto/dunfell/poky-dunfell/bitbake/lib/bb/cooker.py", line 1560, in updateCache
+    self.add_filewatch([[dirent]], dirs=True)
+  File "/yocto/dunfell/poky-dunfell/bitbake/lib/bb/cooker.py", line 291, in add_filewatch
+    watcher.add_watch(f, self.watchmask, quiet=False)
+  File "/yocto/dunfell/poky-dunfell/bitbake/lib/pyinotify.py", line 1908, in add_watch
+    raise WatchManagerError(err, ret_)
+pyinotify.WatchManagerError: add_watch: cannot watch /yocto/dunfell/poky-dunfell/meta/recipes-core/kbd WD=-1, Errno=No space left on device (ENOSPC)
+
+```
+
+use `sudo sysctl -n -w fs.inotify.max_user_watches=262144` to augment the value on host not in docker container.
+
 
 ## 5. References
 * [1. yocto](https://www.yoctoproject.org/)
